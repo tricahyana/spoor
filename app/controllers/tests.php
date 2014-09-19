@@ -3,10 +3,6 @@
 class Tests extends Application{
 
     function welcome() {
-        $this->view['data'] = 'sdfsdf';
+        $this->view['data'] = Test::nama_saya();
     }
-
-    function create() {
-    }
-
 }

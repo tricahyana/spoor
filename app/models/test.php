@@ -2,7 +2,7 @@
 
 class Test{
     
-    function nama_saya(){
+    static function nama_saya(){
         return 'kasyfil';
     }
 }

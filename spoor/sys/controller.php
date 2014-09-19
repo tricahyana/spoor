@@ -27,6 +27,8 @@ class Controller extends Core {
      *      dieksekusi jika sebelumnya tidak memanggil fungsi load()
      */
     public function load_method($method, $params, $controller = '') {
+        include CONFIG . "app" . EXT;
+
         $this->method_name = $method;
 
         /*
@@ -41,18 +43,45 @@ class Controller extends Core {
          */
         $this->controller_obj->model = create_object('model', SYS);
 
+        /**
+         * Auto load library berdasarkan file config
+         */
+        for ($i = 2; $i <= (count(scandir(LIBRARY)) - 1); $i++) {
+            $dir = scandir(LIBRARY)[$i];
+            /*
+             * Meng-include semua file *.(#EXT) yang terdapat didalam folder library
+             */
+            for ($j = 2; $j <= (count(glob(LIBRARY . $dir . "/*" . EXT)) - 1); $j++) {
+                $library_ = $dir . "/" . scandir(LIBRARY . $dir)[$j];
+                /*
+                 * Mencek apakah file yang dimaksud ada atau tidak
+                 */
+                if (file_exists(LIBRARY . $library_)) {
+                    /*
+                     * Menghilangkan extensi agar didapat nama file yang digunakan
+                     * untuk membuat objek
+                     */
+                    //die ($library_) . "<br>";
+                    $library_ = str_replace(EXT, '', scandir(LIBRARY . $dir)[$j]);
+                    $library = create_object($library_, LIBRARY . $dir . "/");
+                    $this->controller_obj->$library_ = $library;
+                } else {
+                    exit("Library $library_ not Found! " . LIBRARY . $library_);
+                }
+            }
+        }
+
+
         /*
          * Auto load model berdasarkan file config
          */
-        include CONFIG . "app" . EXT;
         for ($i = 2; $i <= (count(scandir(MODEL)) - 1); $i++) {
-            $result = str_replace('.php', '', scandir(MODEL)[$i]);
+            $result = scandir(MODEL)[$i];
 
-            if (file_exists(MODEL . $result . EXT)) {
-                $model = create_object($result, MODEL);
-                $this->controller_obj->$result = $model;
+            if (file_exists(MODEL . $result)) {
+                include MODEL . $result;
             } else {
-                exit("Model $result not Found! " . MODEL . $result . EXT);
+                exit("Model $result not Found! " . MODEL . $result);
             }
         }
 
