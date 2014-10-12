@@ -1,9 +1,6 @@
 <?php
 
-class User {
-
-    public static function hello() {
-        return 'hello';
-    }
+require ACTIVERECORD;
+class User extends ActiveRecord\Model{
 
 }

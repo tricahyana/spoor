@@ -14,6 +14,6 @@
  * 
  * Halaman default ketika user mengakses root website
  */
-$route['_default_'] = 'welcome/welcome';
+$route['_default_'] = 'users/show';
 
-$route['GET']['index/'] = "welcome/welcome";
+//resources('users', $route);

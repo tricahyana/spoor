@@ -27,17 +27,17 @@ define("CONTROLLER", APP . "controllers/");
 /*
  * Nama folder tempat menyimpan file-file model
  */
-define("MODEL", APP. "models/");
+define("MODEL", APP . "models/");
 
 /*
  * Nama folder tempat menyimpan file-file view
  */
-define("VIEW", APP. "views/");
+define("VIEW", APP . "views/");
 
 /*
  * Nama folder tempat menyimpan file-file library
  */
-define("LIBRARY", APP. "libraries/");
+define("LIBRARY", APP . "libraries/");
 
 /*
  * Nama folder tempat menyimpan file-file config
@@ -45,11 +45,19 @@ define("LIBRARY", APP. "libraries/");
 define("CONFIG", "config/");
 
 /*
+ * Nama folder tempat menyimpan file-file config
+ */
+define("APP_CONFIG", CONFIG . "app" . EXT);
+
+/*
  * Nama root foler dari file-file system Spoor
  */
 define("SYS", "spoor/sys/");
 
-require SYS . "core" . EXT;
+include CONFIG . 'const' . EXT;
+include SYS . "common" . EXT;
+include SYS . "core" . EXT;
+
 $core = new Core();
 $core->init();
 
