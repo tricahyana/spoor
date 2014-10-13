@@ -14,8 +14,8 @@ class Core {
         $this->get_router();
 
         $this->get_controller();
-        $this->controller->load($this->router->get_controller());
-        $this->controller->load_method($this->router->get_method(), $this->router->get_params());
+//        $this->controller->load($this->router->get_controller());
+        $this->controller->load_method($this->router->get_method(), $this->router->get_params(), $this->router->get_controller());
     }
 
     public function get_router() {
@@ -24,9 +24,5 @@ class Core {
 
     public function get_controller() {
         return $this->controller = create_object("controller", SYS);
-    }
-    
-    public function test(){
-        echo 'test';
     }
 }

@@ -3,7 +3,7 @@
 class Router {
 
     private $url_request = Array();
-    private $controllers;
+    private $controller;
     private $method;
     private $params = Array();
 
@@ -72,16 +72,16 @@ class Router {
      * controller dari url
      */
     private function _set_controller($controller = null) {
-        if (is_null($controller)) {
+        if ($controller == null) {
             if ($this->url_request[2] != '') {
-                $this->controllers = $this->url_request[2];
+                $this->controller = $this->url_request[2];
             } else {
                 $uri = explode('/', $route['_default_']);
-                $this->controllers = $uri[0];
+                $this->controller = $uri[0];
                 $this->method = (isset($uri[1])) ? $uri[1] : "";
             }
         } else {
-            $this->controllers = $controller;
+            $this->controller = $controller;
         }
     }
 
@@ -120,7 +120,7 @@ class Router {
      * Fungsi untuk mendapatkan nama dari controller yang diakses
      */
     public function get_controller() {
-        return (string) $this->controllers;
+        return $this->controller;
     }
 
     /**

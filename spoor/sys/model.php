@@ -1,6 +1,6 @@
 <?php
 
-class Model extends Core{
+class Model{
 
     private $model_obj;
     private $model_name;

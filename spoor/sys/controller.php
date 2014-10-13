@@ -1,25 +1,23 @@
 <?php
 
-class Controller extends Core {
+class Controller {
 
+    private $router;
     private $controller_obj;
     private $controller_name;
     private $method_name;
     private $view_obj;
-    
-    public function __construct() {
-        parent::__construct();
-    }
 
     /**
      * Memanggil controller
      * @param type $controller
      * @return type
      */
-    public function load($controller) {
+    public function load_controller($controller) {
         include CONTROLLER . "app_controller" . EXT;
-        $this->controller_obj = create_object($controller, CONTROLLER);
+        $this->controller_obj = new $controller();
         $this->controller_name = $controller;
+
         return $this->controller_obj;
     }
 
@@ -31,14 +29,18 @@ class Controller extends Core {
      *  - 'controller (optional)', Adalah nama controller dari method yang akan 
      *      dieksekusi jika sebelumnya tidak memanggil fungsi load()
      */
-    public function load_method($method, $params, $controller = '') {
-        include CONFIG . "app" . EXT;
+    public function load() {
+        $this->get_router();
+        $method = $this->router->get_method();
+        $params = $this->router->get_params();
+        $controller = $this->router->get_controller();
 
+        include CONFIG . "app" . EXT;
         /*
          * Jika method tidak dipanggil di url maka akan secara default
          * memanggil method index
          */
-        if($method == ""){
+        if ($method == "") {
             $method = "index";
         }
         $this->method_name = $method;
@@ -47,13 +49,13 @@ class Controller extends Core {
          * Memerksa jika controller belum diload
          */
         if ($controller != '') {
-            $this->load($controller);
+            $this->load_controller($controller);
         }
 
         /*
          * Me-load fungsi-fungsi model
          */
-        $this->controller_obj->model = create_object('model', SYS);
+//        $this->controller_obj->model = create_object('model', SYS);
 
         /**
          * Auto load library berdasarkan file config
@@ -93,11 +95,16 @@ class Controller extends Core {
             $this->controller_obj->$method();
         }
 
+
         /*
          * Load View
          */
         $this->view_obj = create_object("view", SYS);
         $this->view_obj->load_view($this->controller_name, $this->method_name, $this->controller_obj->view);
+    }
+
+    public function get_router() {
+        return $this->router = new Router();
     }
 
 //    public function load_view($view_data, $view_name = null) {

@@ -1,12 +1,11 @@
 <?php
 
-Class App_controller extends Controller {
+Class App_controller {
 
     public $view = Array();
     public $library;
 
     public function __construct() {
-        parent::__construct();
 
 //
 //        /*
@@ -21,7 +20,7 @@ Class App_controller extends Controller {
 //                exit("Model $result not Found! " . MODEL . $result);
 //            }
 //        }
-        $this->load_library();
+//        $this->load_library();
 //        set_include_path('')
 //        spl_autoload_extensions(".php"); // comma-separated list
 //        spl_autoload_register();

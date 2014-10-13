@@ -56,10 +56,10 @@ define("SYS", "spoor/sys/");
 
 include CONFIG . 'const' . EXT;
 include SYS . "common" . EXT;
-include SYS . "core" . EXT;
+include SYS . "controller" . EXT;
 
-$core = new Core();
-$core->init();
+$controller = new Controller();
+$controller->load();
 
 
 

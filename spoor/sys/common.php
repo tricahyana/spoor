@@ -30,18 +30,17 @@ function resources($controller, &$route) {
 }
 
 function __autoload($class) {
-//    echo $class;
     $class = strtolower($class);
 
-//    if (file_exists(SYS . $class . EXT)) {
-//        include SYS . $class . EXT;
-//    } elseif (file_exists(LIBRARY . $class . '/' . $class . EXT)) {
-//        include LIBRARY . $class . '/' . $class . EXT;
-//    } elseif (file_exists(CONTROLLER . $class . EXT)) {
-//        include CONTROLLER . $class . EXT;
-//    } else {
+    if (file_exists(SYS . $class . EXT)) {
+        include SYS . $class . EXT;
+    } elseif (file_exists(LIBRARY . $class . '/' . $class . EXT)) {
+        include LIBRARY . $class . '/' . $class . EXT;
+    } elseif (file_exists(CONTROLLER . $class . EXT)) {
+        include CONTROLLER . $class . EXT;
+    } else {
         require MODEL . $class . EXT;
-//    }
+    }
 }
 
 function is_common_loaded() {
