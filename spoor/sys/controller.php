@@ -104,7 +104,8 @@ class Controller {
     }
 
     public function get_router() {
-        return $this->router = new Router();
+        $this->router = new Router();
+        $this->router->load();
     }
 
 //    public function load_view($view_data, $view_name = null) {

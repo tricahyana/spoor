@@ -1,0 +1,22 @@
+<?php
+
+$data = 'test';
+
+
+$ob = new Mulai();
+$ob->index();
+
+test();
+
+class Mulai {
+
+    function index() {
+        $data = 'haii';
+        global $data;
+    }
+    
+}
+
+function test(){
+   echo $data;
+}

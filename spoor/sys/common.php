@@ -23,10 +23,32 @@ function create_object($class, $path) {
 /*
  * Berfungsi untuk mendapatkan route CRUD secara otomatis 
  */
-
 function resources($controller, &$route) {
-    $route['GET'][$controller . '/'] = $controller . '/index';
-    $route['GET'][$controller . '/$1'] = $controller . '/show/$1';
+    if (is_array($controller)) {
+        foreach ($controller as $result){
+            array_push($route, array(
+                    "GET" => array(
+                        $result => $result . "/index",
+                        $result . "/:id" => $result . "/show/:id"
+                    ),
+                    "POST" => array(
+                        $result . "/new" => $result . "/create"
+                    )
+                )
+            );
+        }
+    } else {
+        array_push($route, array(
+                "GET" => array(
+                    $controller => $controller . "/index",
+                    $controller . "/:id" => $controller . "/show/:id"
+                ),
+                "POST" => array(
+                    $controller . "/new" => $controller . "/create"
+                )
+            )
+        );
+    }
 }
 
 function __autoload($class) {

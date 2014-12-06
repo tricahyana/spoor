@@ -7,7 +7,9 @@ class Users extends App_controller {
     }
 
     function index() {
-        echo User::test();
+        $data['hello'] = 'test';
+        $this->view($data);
+        
     }
 
     function show() {
@@ -20,19 +22,15 @@ class Users extends App_controller {
     }
 
     function _new() {
-        
     }
 
     function update() {
-        
     }
 
     function _edit() {
-        
     }
 
     function delete() {
-        
     }
 
 }

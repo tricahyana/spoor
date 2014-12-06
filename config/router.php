@@ -15,5 +15,6 @@
  * Halaman default ketika user mengakses root website
  */
 $route['_default_'] = 'users/show';
+$route['GET']['users/tampil'] = "users/index";
 
-//resources('users', $route);
+resources(['users', 'article', 'news'], $route);

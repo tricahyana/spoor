@@ -8,7 +8,7 @@ class Router {
     private $params = Array();
 
     public function __construct() {
-        $this->load();
+        //$this->load();
     }
 
     /**
@@ -29,15 +29,17 @@ class Router {
          * Jika ternyata terdapat settingan di route maka akan merubah
          * method name dan class name
          */
-        $this->_check_route($_SERVER['REQUEST_METHOD']);
+        $this->_check_route();
     }
 
     /**
      * Fungsi ini khusus untuk mencek route yang akan pertamakali diekseskusi 
      * oleh constructor
      */
-    private function _check_route($request_method) {
+    private function _check_route() {
         require CONFIG . "router" . EXT;
+        
+        $request_method = $_SERVER['REQUEST_METHOD'];
 
         /*
          * Untuk mencek apakah ada routing external dari file router.php di 
@@ -49,7 +51,7 @@ class Router {
                  * Jika terdapat routing external dari file route.php maka akan
                  * dilakukan pengarahan file sesuai dengan yang ada di file route.php
                  */
-                if ($key == ($this->controllers . "/" . $this->method)) {
+                if ($key == ($this->controller . "/" . $this->method)) {
                     $uri = explode('/', $value);
                     $this->_set_controller($uri[0]);
                     $this->_set_method($uri[1]);
@@ -57,6 +59,22 @@ class Router {
                 }
             }
         }
+        
+        // Convert wild-cards to RegEx
+//        // From CodeIgniter
+//        $key = str_replace(':any', '.+', str_replace(':num', '[0-9]+', $key));
+//
+//        // Does the RegEx match?
+//        if (preg_match('#^'.$key.'$#', $uri))
+//        {
+//                // Do we have a back-reference?
+//                if (strpos($val, '$') !== FALSE AND strpos($key, '(') !== FALSE)
+//                {
+//                        $val = preg_replace('#^'.$key.'$#', $val, $uri);
+//                }
+//
+//                return $this->_set_request(explode('/', $val));
+//        }
     }
 
     private function _get_url_request() {
@@ -76,6 +94,8 @@ class Router {
             if ($this->url_request[2] != '') {
                 $this->controller = $this->url_request[2];
             } else {
+                require CONFIG . "router" . EXT;
+                
                 $uri = explode('/', $route['_default_']);
                 $this->controller = $uri[0];
                 $this->method = (isset($uri[1])) ? $uri[1] : "";
