@@ -2,35 +2,21 @@
 
 class Users extends App_controller {
 
-    function __construct() {
-        
-    }
-
-    function index() {
-        $data['hello'] = 'test';
-        $this->view($data);
-        
-    }
+    function index() {}
 
     function show() {
         $user = User::find(1);
         $this->view['id'] = $user->alamat;
     }
 
-    function create() {
-        
-    }
+    function create() {}
 
-    function _new() {
-    }
+    function _new() {}
 
-    function update() {
-    }
+    function update() {}
 
-    function _edit() {
-    }
+    function _edit() {}
 
-    function delete() {
-    }
+    function delete() {}
 
 }

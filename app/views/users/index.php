@@ -1,2 +1,1 @@
-<?php
-echo $hello;
+<h3>Hello</h3>
