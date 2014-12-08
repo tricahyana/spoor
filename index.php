@@ -58,8 +58,11 @@ include CONFIG . 'const' . EXT;
 include SYS . "common" . EXT;
 include SYS . "controller" . EXT;
 
-$controller = new Controller();
-$controller->load();
+if (!php_sapi_name() == 'cli')
+{
+    $controller = new Controller();
+    $controller->load();
+}
 
 
 

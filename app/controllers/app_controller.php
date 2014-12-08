@@ -2,9 +2,11 @@
 
 Class App_controller {
 
-    public $view = Array();
-
     public function __construct() {
+        global $properties;
+        $this->params = $properties['parameter'];
+        $this->controller = $properties['controller'];
+        $this->method = $properties['method'];
     }
     
     public function view($variable){

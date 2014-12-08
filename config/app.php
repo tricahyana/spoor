@@ -1,4 +1,6 @@
 <?php
+global $properties;
+$properties = array();
 
 $config['base_url'] = '';
 
